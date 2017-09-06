@@ -1,0 +1,16 @@
+Step 5 unusual input:
+How many diesel volkswagen owners were surveyed? 10
+How many of them say they will take a payment and keep their car? 8
+How many of htem say they will return thier car for a refund? 4
+80% say they will keep their car
+40% say they will demand a refund
+Unusual inputs giving incorrect outputs as 80% + 40% > 100%.
+
+logic_error.cpp error: 
+double pctKeep - numKeep/numberSurveyed changed to numberSurveyed/numKeep
+double pctRefund - numRefund/numberSurveyed changed to numberSurveyed/numRefund
+This will result in % values >100% when computing for pctKeep and pctRefund
+
+compile_error.cpp error:
+Error 1 - Removal of semi-colon after int numberSurveyed resulting in syntax error
+Error 2 - Removal of line "using namespace std;" resulting in numerous compile errors as functions cout, cin, endl become undefined without addition of 'std::' prefix
