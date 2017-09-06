@@ -1,0 +1,72 @@
+a. notable obstacles: 
+Familiarizing with using C strings instead of C++ strings
+More specifications in the program description meant more time spent checking code 
+
+b. program design:
+
+declare global const MAXWORDS as 10000
+
+create function probecheck which checks validity of probe word entered
+	for every character in probe
+		if it is not a lower case alphabet and the probe is not between 4 to 6 characters long
+			return 1
+		otherwise if probe word is a word in the list
+			return 0
+		else return 2
+
+create function manageOneRound
+	if nWords < 0 or wordnum < 0 or wordnum >= nWords
+		return -1 (as indicated in specs)
+	create loop for each attempt in this round
+		initialize rocks and pebbles as ints = 0
+		create new c string and input chosen word from list
+		create c string for probe (PROBE), and prompt user to enter probe
+		
+		if player enters the correct word, return the attempts taken
+		else run probecheck function and print respective messages if probe is invalid
+		else if probe is valid
+			run a loop to check for rocks in PROBE
+				increment number of rocks 
+				for every rock found, remove from both PROBE and chosen secret word
+	
+			run a loop for remaining letters in secret word
+				check each letter in secret word against all remaining letters in PROBE via loop
+					incrememnt number of pebbles
+					for every pebble found, remove from remaining PROBE array
+
+			print number of rocks and pebbles
+
+
+main function
+	initialize numer of rounds as an int
+	load words, save as int nWords
+
+	if number of words in list < 1, print specified message
+	return 0
+
+	prompt user for number of rounds and read user input 
+	if user entered negative value, print message. Program will terminate itself as subsequent loop will not run
+ 	
+	intialize min, max and current totals as integers = 0
+
+	create loop for each round in the game
+		using randInt function, intialize a random number into int random
+		print round number
+		print length of secret word
+		
+		call manageOneRound function and save returned value as int tries
+		
+		if user took 1 try, print message
+		if user took more than 1 try, print message
+
+		increment total number of tries user took
+
+		if it is round 1, save min value as the current number of tries
+		else if tries in that round is less than current min, change min appropriately
+
+		if max is less than current number of tries, change max appropriately
+
+		calculate average tries per round
+
+		print average, minimum and maximum number of tries
+		

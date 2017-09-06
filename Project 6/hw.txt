@@ -1,0 +1,183 @@
+1a.
+int main()
+{
+	int arr[3] = { 5, 10, 15 };
+	int* ptr = arr;
+
+	*ptr = 10;          // set arr[0] to 10
+	*(ptr + 1) = 20;      // set arr[1] to 20
+	ptr = arr + 2;
+	*ptr = 30;        // set arr[2] to 10
+
+	for (int n = 2; n >= 0; n--)
+	{
+		cout << arr[n] << endl;    // print values
+	}
+}
+
+1b.
+Explanation: The function will not achieve the desired result as the pToMax parameter is
+passed by value, hence actual pointer value outside of the function is not updated.
+By adding a '&' prefix, it passes by reference pToMax and fixes the bug.
+
+void findMax(int arr[], int n, int* &pToMax)
+{
+	if (n <= 0)
+		return;      // no items, no maximum!
+
+	pToMax = arr;
+
+	for (int i = 1; i < n; i++)
+	{
+		if (arr[i] > *pToMax)
+			pToMax = arr + i;
+	}
+}
+
+int main()
+{
+	int nums[4] = { 5, 3, 15, 6 };
+	int* ptr;
+
+	findMax(nums, 4, ptr);
+	cout << "The maximum is at address " << ptr << endl;
+	cout << "It's at position " << ptr - nums << endl;
+	cout << "Its value is " << *ptr << endl;
+}
+
+1c.
+Explanation: The pointer ptr was not initialized, hence it was not pointing
+to any particular value. This can be fixed by initializing it as shown below.
+
+void computeCube(int n, int* ncubed)
+{
+	*ncubed = n * n * n;
+}
+
+int main()
+{
+	int cube = 5;
+	int* ptr = &cube;
+	computeCube(cube, ptr);
+	cout << "Five cubed is " << *ptr << endl;
+}
+
+1d.
+Explanation: When comparing characters, deference operator should be added
+to str1 and str2 as shown below. 0 should also be '\0' instead.
+
+bool strequal(const char str1[], const char str2[])
+{
+	while (*str1 != '\0' && *str2 != '\0')
+	{
+		if (*str1 != *str2)  // compare corresponding characters
+			return false;
+		str1++;				  // advance to the next character
+		str2++;
+	}
+	return true;   // both ended at same time?
+}
+
+int main()
+{
+	char a[15] = "Noor";
+	char b[15] = "Noah";
+
+	if (strequal(a, b))
+		cout << "They're the same person!\n";
+}
+
+1e.
+Program is initializing an array within the getPtrToArray function instead of in main routine.
+
+2a. double* cat;
+2b. double mouse[5];
+2c. cat = mouse + 4;
+2d. *cat = 42;
+2e. *(mouse + 3) = 25;
+2f. cat = cat - 3;
+2g. cat[1] = 17;
+2h. cat[0] = 54;
+2i. bool b = (*cat == *(cat + 1));
+2j. bool d = (cat == mouse);
+
+3a.
+double mean(const double* scores, int numScores)
+{
+	int n = 0;
+	const double* ptr = scores;
+	double tot = 0;
+	while (n < numScores)
+	{
+		tot += *(ptr + n);
+		n++;
+	}
+	return tot / numScores;
+}
+
+3b.
+const char* findTheChar(const char* str, char chr)
+{
+	for (int k = 0; *(str + k) != '\0'; k++)
+		if (*(str + k) == chr)
+			return (str + k);
+
+	return nullptr;
+}
+
+3c.
+const char* findTheChar(const char* str, char chr)
+{
+	while (*(str) != '\0')
+	{
+		if (*(str) == chr)
+			return str;
+		else
+			str++;
+	}
+	return nullptr;
+}
+
+4.
+Program wil print:
+3
+4
+79
+-1
+9
+22
+19
+
+Explanation: 
+array is initialized as {5, 3, 4, 17, 22, 19}
+
+ptr is initialized to take on the address of the first element of array (int* ptr = array)
+first element of array changed to -1 ==> {-1, 3, 4, 17, 22, 19}
+ptr incremented to take on the address of third element of array
+fourth element of array changed to 9 ==> {-1, 3, 4, 9, 22, 19}
+second element of array changed to 79 ==> {-1, 79, 4, 9, 22, 19}
+
+print (address of 6th element of array - address of 3rd element of array) = 3, endl
+
+swap1 function initialized, addresses of 1st and 2nd elements are swapped within function
+but because it is passed by value, actual array addresses outside of the function remain unnchanged.
+
+swap2 function initialized, swaps actual values of 1st and 3rd elements of array ==> {4, 79, -1, 9, 22, 19}
+
+print each element in array in a new line
+
+
+5.
+void removeS(char* message)
+{
+	while (*message != '\0')
+	{
+		if (*message == 'S' || *message == 's')
+		{
+			for (char* message2 = message; *message2 != '\0'; message2++)
+				*message2 = *(message2 + 1);
+		}
+		else
+			message++;
+	}
+}

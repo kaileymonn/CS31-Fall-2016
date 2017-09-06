@@ -1,0 +1,14 @@
+Notable obstacles:
+1. Finding a simple way to express the conditions to compute royalty. This was solved using the 'else if' function.
+
+Test data:
+1. Units Sent <= 400 (400, Hello, 9.00, y/n)
+2. Units Sent <= 1200 & Premium y (786, Hello, 9.00, y)
+3. Units Sent <= 1200 & Premium n (786, Hello, 9.00, n)
+4. Units Sent > 1200 & Premium y (1566, Hello, 9.00, y)
+5. Units Sent > 1200 & Premium n (1566, Hello, 9.00, n)
+6. Units Sent < 0 (-456, , , )
+7. Empty String (345,, , )
+8. Base Price < 0 (345, Hello, -5.00, )
+9. Premium status invalid (345, Hello, 9.00, abc)
+

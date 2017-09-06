@@ -1,0 +1,61 @@
+Notable Obstacles:
+1. Longest C++ coding project yet in CS31, more complex hence more errors and more time spent on debugging
+2. Getting ideas accross in fewer lines of code
+
+Program Design:
+
+bool isRouteWellFormed(string route)
+	if first char is digit, return false
+	For each character in string
+		If neither digit nor alphabet, return false
+		Else if char is an alphabet
+			If char is not NSEW or nsew, return false
+			else if >2 digits follow direction, return false
+	If no errors were found, route is well-formed
+
+int navigateSegment(int r, int c, char dir, int maxSteps)
+	set steps = 0
+	If starting position is not valid, return -1
+	Else if direction is not valid character, return -1
+	Else if maxSteps it not >0, return -1
+	If syntatically correct, check if direction is N S E or W.
+		Increment steps up to maxSteps in direction specified, break if wall is met or robot leaves grid
+		return steps taken until wall is met/robot leaves grid/maxSteps has been reached
+
+int navigateRoute(int sr, int sc, int er, int ec, string route, int& nsteps)
+	set nsteps = 0
+	If route is invalid or start and end points are not empty valid grid positions, return 2
+	For every segment in route string
+		In the case of steps > 9
+			If segment is invalid, return 3, return steps taken up to point of error, break
+			Else change current position accordingly
+		Repeat for case of 0 < steps < 10
+		If no number of steps were given, take steps as 1 and do the same as above
+	If after all iterations of segments and if end points were reached, return 0
+	Else, return 1
+
+
+Test Data:
+1. assert(isRouteWellFormed("n2e1"));
+	Test for valid route, should return true
+	    
+2. assert(!isRouteWellFormed("e1x"));
+	Test for invalid route, should return false
+	    
+3. assert(navigateSegment(3, 1, 'N', 2) == 2);
+	Test for valid segment, should return 2 as number of steps taken
+	    
+4. int len;
+   len = -999;  // so we can detect whether navigateRoute sets len
+   assert(navigateRoute(3,1, 3,4, "N2eE01n0s2e1", len) == 0  &&  len == 7);
+	Test for navigation of valid route. Will reach end points, so return 0 
+	and number of steps taken will be 7.
+	    
+5. len = -999;  // so we can detect whether navigateRoute sets len
+   assert(navigateRoute(3,1, 3,4, "e1x", len) == 2  &&  len == 0);
+	Test for navigation of syntatically invalid route, hence will return 2 and steps taken to be 0.
+   
+6. len = -999;  // so we can detect whether navigateRoute sets len
+   assert(navigateRoute(2,4, 1,1, "w3n1", len) == 3  &&  len == 1);
+	Test for navigation of syntatically valid route which runs into a wall, hence will return 3 and steps taken to be 1 (before running into a wall)
+		
